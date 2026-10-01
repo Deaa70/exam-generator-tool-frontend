@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Sigma } from "lucide-react";
 
 const MathField = "math-field" as any;
@@ -118,25 +120,28 @@ export default function MathEquationDialog() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
+      <AlertDialogTrigger
         type="button"
         title="إضافة معادلة"
         className="inline-flex h-8 w-8 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 sm:h-9 sm:w-9"
       >
         <Sigma className="h-4 w-4 sm:h-5 sm:w-5" />
-      </DialogTrigger>
+      </AlertDialogTrigger>
 
-      <DialogContent
+      <AlertDialogContent
+        // Silence the "missing description" dev warning — this is a form,
+        // not a destructive confirmation, so there's nothing to describe.
+        aria-describedby={undefined}
         // @ts-expect-error — Radix supports this, shadcn's types don't expose it
-  onCloseAutoFocus={(event: Event) => event.preventDefault()}
+        onCloseAutoFocus={(event: Event) => event.preventDefault()}
         className="w-[92vw] border border-white/10 bg-[#111827] text-white sm:max-w-lg"
       >
-        <DialogHeader>
-          <DialogTitle className="text-sm text-[#00ffbf] text-center sm:text-base">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-sm text-[#00ffbf] text-center sm:text-base">
             إضافة معادلة أو رمز
-          </DialogTitle>
-        </DialogHeader>
+          </AlertDialogTitle>
+        </AlertDialogHeader>
 
         <div className="my-1 sm:my-2">
           <MathField
@@ -146,22 +151,21 @@ export default function MathEquationDialog() {
         </div>
 
         <div className="mt-2 flex justify-end gap-2 bg-transparent">
-          <button
+          <AlertDialogCancel
             type="button"
-            onClick={() => setOpen(false)}
-            className="rounded-md border border-white/15 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/5 sm:px-4 sm:py-2 sm:text-sm"
+            className="rounded-md border border-white/15 bg-transparent px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/5 sm:px-4 sm:py-2 sm:text-sm"
           >
             إغلاق
-          </button>
-          <button
+          </AlertDialogCancel>
+          <AlertDialogAction
             type="button"
             onClick={insertEquation}
             className="rounded-md bg-[#00ffbf] px-3 py-1.5 text-xs font-semibold text-[#0b1220] transition-colors hover:bg-[#00e6ac] sm:px-4 sm:py-2 sm:text-sm"
           >
             إدراج
-          </button>
+          </AlertDialogAction>
         </div>
-      </DialogContent>
-    </Dialog>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
