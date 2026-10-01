@@ -39,8 +39,7 @@ export default function QuestionCard({
   } = useFormContext<GenerateExamValues>();
 
   const image = useWatch({ control, name: `questions.${index}.image` });
-  const lang =
-    useWatch({ control, name: `questions.${index}.lang` }) ?? "ar";
+  const lang = useWatch({ control, name: `questions.${index}.lang` }) ?? "ar";
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,9 +55,7 @@ export default function QuestionCard({
 
   const questionErrors = errors.questions?.[index];
 
-  const handleImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
     if (!file) return;
 
@@ -95,8 +92,7 @@ export default function QuestionCard({
             type="button"
             onClick={toggleLang}
             title="تغيير اتجاه السؤال"
-            className="inline-flex h-8 items-center justify-center rounded-md border border-white/15 px-2 text-[10px] font-bold text-white transition-colors hover:border-[#00ffbf]/60 hover:text-[#00ffbf] sm:h-9 sm:px-2.5 sm:text-xs"
-          >
+            className="inline-flex h-8 items-center justify-center rounded-md border border-white/15 px-2 text-[10px] font-bold text-white transition-colors hover:border-[#00ffbf]/60 hover:text-[#00ffbf] sm:h-9 sm:px-2.5 sm:text-xs">
             {lang === "ar" ? "AR" : "EN"}
           </button>
 
@@ -106,8 +102,7 @@ export default function QuestionCard({
             type="button"
             title="إرفاق صورة"
             onClick={() => fileInputRef.current?.click()}
-            className={iconButtonClasses}
-          >
+            className={iconButtonClasses}>
             <ImagePlus className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
 
@@ -120,14 +115,12 @@ export default function QuestionCard({
           />
 
           <AlertDialog>
-            <AlertDialogTrigger               type="button"
-                disabled={!canRemove}
-                title="حذف السؤال"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md text-red-500 transition-colors hover:bg-red-500/10 hover:text-red-400 disabled:cursor-not-allowed disabled:opacity-40 sm:h-9 sm:w-9"
-             
-            >
- 
-                <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
+            <AlertDialogTrigger
+              type="button"
+              disabled={!canRemove}
+              title="حذف السؤال"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md text-red-500 transition-colors hover:bg-red-500/10 hover:text-red-400 disabled:cursor-not-allowed disabled:opacity-40 sm:h-9 sm:w-9">
+              <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
             </AlertDialogTrigger>
             <AlertDialogContent className="border border-white/10 bg-[#111827] text-white">
               <AlertDialogHeader>
@@ -138,14 +131,13 @@ export default function QuestionCard({
                   سيتم حذف هذا السؤال نهائياً.
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="border-white/15 bg-transparent text-xs text-white hover:bg-white/5 sm:text-sm">
+              <AlertDialogFooter className="bg-transparent">
+                <AlertDialogCancel className="border-white/15 bg-transparent text-xs text-white hover:bg-white/5 hover:text-gray-50 sm:text-sm">
                   إلغاء
                 </AlertDialogCancel>
                 <AlertDialogAction
                   onClick={onRemove}
-                  className="bg-red-500 text-xs text-white hover:bg-red-400 sm:text-sm"
-                >
+                  className="bg-red-500 text-xs text-white hover:bg-red-400 sm:text-sm">
                   حذف
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -169,14 +161,10 @@ export default function QuestionCard({
               onChange={field.onChange}
               lang={lang}
               className={`min-h-20 rounded-md border bg-[#111827] p-2.5 text-sm text-white transition-colors focus:border-[#00ffbf]/70 focus:outline-none sm:min-h-24 sm:p-3 ${
-                questionErrors?.text
-                  ? "border-red-500"
-                  : "border-white/10"
+                questionErrors?.text ? "border-red-500" : "border-white/10"
               }`}
               placeholder={
-                lang === "ar"
-                  ? "اكتب السؤال هنا"
-                  : "Write the question here"
+                lang === "ar" ? "اكتب السؤال هنا" : "Write the question here"
               }
             />
           )}
@@ -199,8 +187,7 @@ export default function QuestionCard({
           <button
             type="button"
             onClick={removeImage}
-            className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white transition-colors hover:bg-red-400"
-          >
+            className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white transition-colors hover:bg-red-400">
             <X className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           </button>
         </div>

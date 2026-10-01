@@ -48,7 +48,7 @@ export default function MathEquationDialog() {
       return;
     }
 
-    const latex = `\\(${tex}\\)`;
+    const latex = `\\(${tex}\\) `;
 
     const span = document.createElement("span");
     span.className = `${latex} ql-formula`;
