@@ -231,13 +231,7 @@ If the app runs on a machine without internet access, MathJax won't load and inl
 ## Browser Support
 
 Requires a modern evergreen browser — the editor relies on `contentEditable`, `MathLive` custom elements, and modern CSS (`:has`, logical properties). No support for IE or legacy Edge.
-
----
-
-## License
-
-Add your license here.
-
+ 
 ---
 
 Built by [Deaa Dev](https://deaa.vercel.app/ar).
