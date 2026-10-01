@@ -60,7 +60,7 @@ export default function MathEquationDialog() {
 
       <DialogContent className="w-[92vw] border border-white/10 bg-[#111827] text-white sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-sm text-[#00ffbf] sm:text-base">
+          <DialogTitle className="text-sm text-[#00ffbf] text-center sm:text-base">
             إضافة معادلة أو رمز
           </DialogTitle>
         </DialogHeader>
