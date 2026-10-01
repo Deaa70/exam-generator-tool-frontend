@@ -36,6 +36,8 @@ export default function ContentEditableField({
 }: ContentEditableFieldProps) {
   const ref = useRef<HTMLDivElement>(null);
   const focused = useRef(false);
+  // NEW: remember what this field last emitted so we don't reset its own DOM.
+  const lastEmittedValue = useRef<string | null>(null);
 
   const typeset = useCallback(() => {
     const mathJax = window.MathJax;
@@ -47,6 +49,12 @@ export default function ContentEditableField({
 
   useEffect(() => {
     if (!ref.current) return;
+
+    // Skip the reset if the value change came from this field itself
+    // (e.g. inserting a formula via the dialog). Otherwise we'd nuke
+    // the caret / MathJax-rendered nodes.
+    if (value === lastEmittedValue.current) return;
+
     if (!focused.current && ref.current.innerHTML !== (value || "")) {
       ref.current.innerHTML = value || "";
       typeset();
@@ -57,16 +65,18 @@ export default function ContentEditableField({
     if (!ref.current) return;
     const html = ref.current.innerHTML;
     if (html === "<br>" || html === "<div><br></div>") {
+      lastEmittedValue.current = "";
       onChange("");
       return;
     }
     const clone = ref.current.cloneNode(true) as HTMLElement;
     processNodeRecursively(clone);
-    onChange(clone.innerHTML);
+    const next = clone.innerHTML;
+    lastEmittedValue.current = next; // remember it
+    onChange(next);
   };
 
-  const isEmpty =
-    !value || value.replace(/<[^>]*>/g, "").trim() === "";
+  const isEmpty = !value || value.replace(/<[^>]*>/g, "").trim() === "";
 
   const dir = lang === "en" ? "ltr" : "rtl";
   const textAlign = lang === "en" ? "text-left" : "text-right";
